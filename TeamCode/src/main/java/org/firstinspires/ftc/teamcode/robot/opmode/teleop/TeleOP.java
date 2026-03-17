@@ -24,26 +24,16 @@ public class TeleOP extends OpMode {
     }
 
     @Override
-    public void init_loop() {
-    }
-
-    @Override
     public void start() {
         // Restart the timer
         runtime.reset();
     }
 
-
     @Override
     public void loop() {
-        //drivetrain
-        tankDrivetrain.setMotorPower(gamepad1.left_trigger, gamepad1.right_trigger);
-
+        tankDrivetrain.setDrivePower(gamepad1.left_stick_y);
+        tankDrivetrain.setRotationPower(gamepad1.right_stick_x, -gamepad1.right_stick_x);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-    }
 
-    @Override
-    public void stop() {
     }
-
 }
