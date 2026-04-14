@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.robot.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.robot.subsystem.TankDrivetrain;
 
 
@@ -13,13 +14,19 @@ public class TeleOP extends OpMode {
     private final ElapsedTime runtime = new ElapsedTime();
 
     private TankDrivetrain tankDrivetrain;
+    private  Intake intake;
+
 
     @Override
     public void init() {
         telemetry.addData("Status", "Initializing");
         tankDrivetrain = new TankDrivetrain(hardwareMap);
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Initializing");
+        intake = new Intake(hardwareMap);
+        telemetry.addData("Status", "Initialized");
     }
+
 
     @Override
     public void init_loop() {
@@ -33,15 +40,17 @@ public class TeleOP extends OpMode {
 
 
     @Override
+    public void stop() {
+    }
+
+
+    @Override
     public void loop() {
+        intake.setIntakePower(gamepad1.left_trigger);
+        intake.setIntakePower(-gamepad1.right_trigger);
         tankDrivetrain.setDrivePower(gamepad1.left_stick_y);
         tankDrivetrain.setTurnPower(gamepad1.right_stick_x, -gamepad1.right_stick_x);
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
-
-    @Override
-    public void stop() {
-    }
-
 }
