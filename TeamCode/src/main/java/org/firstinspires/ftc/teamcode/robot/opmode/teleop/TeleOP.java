@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robot.subsystem.Intake;
+import org.firstinspires.ftc.teamcode.robot.subsystem.Storage;
 import org.firstinspires.ftc.teamcode.robot.subsystem.TankDrivetrain;
 
 
@@ -15,6 +16,7 @@ public class TeleOP extends OpMode {
 
     private TankDrivetrain tankDrivetrain;
     private  Intake intake;
+    private Storage storage;
 
 
     @Override
@@ -46,6 +48,10 @@ public class TeleOP extends OpMode {
 
     @Override
     public void loop() {
+        if (gamepad1.right_bumper){
+            storage.setRotationPower(0.5);
+        }
+
         intake.setIntakePower(gamepad1.left_trigger);
         intake.setIntakePower(-gamepad1.right_trigger);
         tankDrivetrain.setDrivePower(gamepad1.left_stick_y);
