@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.opmode.teleop;
 
 
+import static java.lang.Math.abs;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -48,15 +50,23 @@ public class TeleOP extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.right_bumper){
+        if (gamepad1.right_trigger >0.1){
             storage.setRotationPower(0.5);
         }
 
-        intake.setIntakePower(gamepad1.left_trigger);
-        intake.setIntakePower(-gamepad1.right_trigger);
-        tankDrivetrain.setDrivePower(gamepad1.left_stick_y);
-        tankDrivetrain.setTurnPower(gamepad1.right_stick_x, -gamepad1.right_stick_x);
+        if (gamepad1.right_bumper){
+            intake.setIntakePower ();}
+        else if (gamepad1.left_bumper){
+            intake.reverse();}
+        else {
+            intake.stop();}
+
+
+            if (abs(gamepad1.left_stick_y) > 0.1) {
+                tankDrivetrain.setDrivePower(gamepad1.left_stick_y);
+            } else if (abs(gamepad1.right_stick_x) > 0.1) {
+                tankDrivetrain.setTurnPower(gamepad1.right_stick_x, -gamepad1.right_stick_x);
+            }
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-    }
-}
+}}
