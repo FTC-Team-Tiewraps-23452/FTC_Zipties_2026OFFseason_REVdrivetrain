@@ -35,12 +35,16 @@ public class TeleOP extends OpMode {
 
     @Override
     public void loop() {
-    if (gamepad1.left_bumper){
-        intake.setIntakePower();
-    }
-    else {
-        intake.stop();
-    }
+        if (gamepad1.left_bumper){
+            intake.setIntakePower();
+        }
+        else if (gamepad1.right_bumper){
+            intake.reverse();
+        }
+        else {
+            intake.stop();
+        }
+
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
